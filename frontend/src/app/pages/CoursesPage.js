@@ -5,7 +5,7 @@ export function CoursesPage() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  // ===== Mouse move for background parallax =====
+  
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
@@ -17,7 +17,7 @@ export function CoursesPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // ===== Parallax helpers =====
+  
   const parallaxDir = (dx, dy, depth) => ({
     transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
     transition: 'transform 0.15s ease-out',
@@ -36,10 +36,10 @@ export function CoursesPage() {
   const styles = {
     page: {
       minHeight: '100vh',
-      background: 'transparent', // Keep background transparent to show animated background
+      background: 'transparent', 
       padding: '4rem 2rem',
       position: 'relative',
-      zIndex: 10, // sit above background
+      zIndex: 10, 
     },
     container: {
       maxWidth: '1200px',
@@ -60,7 +60,7 @@ export function CoursesPage() {
     },
     subtitle: {
       fontSize: '1.2rem',
-      color: '#fff', // white text for visibility on animated bg
+      color: '#fff', 
     },
     coursesGrid: {
       display: 'grid',
@@ -184,79 +184,140 @@ export function CoursesPage() {
   };
 
   const courses = [
-    {
-      id: 1,
-      title: 'Cyber Security',
-      category: 'Development',
-      description: 'Learn HTML, CSS, JavaScript, and React from scratch to advanced level',
-      price: '$99',
-      rating: 4.8,
-      students: '2,500',
-      image: '/cybersecurity.jpg',
-      character: '👨‍💻',
-      details: 'Complete web development course covering frontend and backend technologies. Build 10+ real projects.',
-    },
-    {
-      id: 2,
-      title: 'Digital Marketing',
-      category: 'Design',
-      description: 'Master the principles of user interface and user experience design',
-      price: '$79',
-      rating: 4.9,
-      students: '1,800',
-      image: "/digital marketing.jpg",
-      character: '🎨',
-      details: 'Learn design thinking, wireframing, prototyping, and user research. Work with Figma and Adobe XD.',
-    },
-    {
-      id: 3,
-      title: 'Artificial Intelligence',
-      category: 'Data Science',
-      description: 'Dive deep into data analysis, visualization, and machine learning',
-      price: '$129',
-      rating: 4.7,
-      students: '3,200',
-      image: '/Ai.jpg',
-      character: '📊',
-      details: 'Master Python, NumPy, Pandas, Matplotlib, and Scikit-learn. Build ML models from scratch.',
-    },
-    {
-      id: 4,
-      title: 'Digital Marketing Strategy',
-      category: 'Marketing',
-      description: 'Learn SEO, social media marketing, and content strategy',
-      price: '$89',
-      rating: 4.6,
-      students: '1,500',
-      image: 'https://example.com/web-dev.jpg',
-      character: '📱',
-      details: 'Comprehensive marketing course covering SEO, SEM, social media, email marketing, and analytics.',
-    },
-    {
-      id: 5,
-      title: 'Mobile App Development',
-      category: 'Development',
-      description: 'Build native and cross-platform mobile applications',
-      price: '$119',
-      rating: 4.8,
-      students: '2,100',
-      image: 'https://example.com/web-dev.jpg',
-      character: '📱',
-      details: 'Learn React Native and Flutter. Build and deploy apps to App Store and Play Store.',
-    },
-    {
-      id: 6,
-      title: 'Artificial Intelligence Basics',
-      category: 'AI/ML',
-      description: 'Introduction to AI, neural networks, and deep learning',
-      price: '$149',
-      rating: 4.9,
-      students: '2,800',
-      image: 'https://example.com/web-dev.jpg',
-      character: '🤖',
-      details: 'Explore AI fundamentals, neural networks, NLP, computer vision, and deep learning frameworks.',
-    },
-  ];
+  {
+    id: 1,
+    title: 'Cyber Security',
+    category: 'IT & Security',
+    description: 'Learn how to protect systems, networks, and data from cyber threats',
+    price: '$99',
+    rating: 4.8,
+    students: '2,500',
+    image: '/cybersecurity.jpg',
+    character: '👨‍💻',
+    details: 'Covers ethical hacking, network security, cryptography, malware analysis, and real-world security practices.',
+  },
+  {
+    id: 2,
+    title: 'Digital Marketing',
+    category: 'Marketing',
+    description: 'Learn how to grow brands using digital channels and online strategies',
+    price: '$79',
+    rating: 4.9,
+    students: '1,800',
+    image: '/digitalmark.webp',
+    character: '🎨',
+    details: 'Includes SEO, social media marketing, Google Ads, email marketing, analytics, and campaign strategy.',
+  },
+  {
+    id: 3,
+    title: 'AI Automation',
+    category: 'Artificial Intelligence',
+    description: 'Automate workflows and business processes using AI tools and scripts',
+    price: '$129',
+    rating: 4.7,
+    students: '3,200',
+    image: '/Ai.jpg',
+    character: '📊',
+    details: 'Learn AI-powered automation, Python scripting, APIs, chatbots, and real-world automation use cases.',
+  },
+  {
+    id: 4,
+    title: 'Web Development',
+    category: 'Development',
+    description: 'Build modern, responsive websites from scratch',
+    price: '$89',
+    rating: 4.6,
+    students: '1,500',
+    image: '/webdev.jpg',
+    character: '📱',
+    details: 'Learn HTML, CSS, JavaScript, React, backend basics, and deploy real-world web applications.',
+  },
+  {
+    id: 5,
+    title: 'Project Management',
+    category: 'Management',
+    description: 'Learn how to plan, execute, and deliver projects successfully',
+    price: '$119',
+    rating: 4.8,
+    students: '2,100',
+    image: '/Projmang.jpg',
+    character: '📱',
+    details: 'Covers project planning, risk management, budgeting, leadership skills, and project management tools.',
+  },
+  {
+    id: 6,
+    title: 'Communication Skills',
+    category: 'Personal Development',
+    description: 'Improve verbal, non-verbal, and professional communication skills',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: '/communication.jpg',
+    character: '🤖',
+    details: 'Learn public speaking, interpersonal communication, body language, and workplace communication techniques.',
+  },
+  {
+    id: 7,
+    title: 'Prompt Engineering',
+    category: 'AI / ML',
+    description: 'Learn how to write effective prompts for AI tools like ChatGPT',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: '/prompteng.jpg',
+    character: '🤖',
+    details: 'Covers prompt design, optimization techniques, AI behavior control, and real-world AI use cases.',
+  },
+  {
+    id: 8,
+    title: 'Hospitality',
+    category: 'Hospitality & Tourism',
+    description: 'Learn the fundamentals of hospitality and customer service excellence',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: 'hospitality.jpg',
+    character: '🤖',
+    details: 'Includes hotel management, guest relations, service quality, operations, and hospitality industry standards.',
+  },
+  {
+    id: 9,
+    title: 'English Proficiency',
+    category: 'Language',
+    description: 'Improve English speaking, writing, reading, and listening skills',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: 'english.jpg',
+    character: '🤖',
+    details: 'Focuses on grammar, vocabulary, pronunciation, fluency, and professional English communication.',
+  },
+  {
+    id: 10,
+    title: 'Agile Project Management',
+    category: 'Management',
+    description: 'Manage projects efficiently using Agile methodologies',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: 'agile.jpg',
+    character: '🤖',
+    details: 'Learn Scrum, Kanban, Agile planning, sprint management, and team collaboration techniques.',
+  },
+  {
+    id: 11,
+    title: 'Content Creation',
+    category: 'Creative',
+    description: 'Create engaging content for social media and digital platforms',
+    price: '$149',
+    rating: 4.9,
+    students: '2,800',
+    image: 'contentcreation.jpg',
+    character: '🤖',
+    details: 'Covers content strategy, video creation, copywriting, branding, and monetization techniques.',
+  },
+];
+
 
   const selectedCourseData =
     selectedCourse !== null

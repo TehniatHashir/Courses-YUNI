@@ -25,7 +25,8 @@ export function RegisterPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const handleSubmit = (e) => {
+  // 🔹 Updated handleSubmit to integrate backend API
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -33,14 +34,38 @@ export function RegisterPage() {
       return;
     }
 
-    alert('Registration successful! Welcome to YUNI!');
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
-    });
+    try {
+      const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phoneNumber: formData.phone, // backend expects phoneNumber
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registration successful! Welcome to YUNI!');
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          password: '',
+          confirmPassword: '',
+        });
+      } else {
+        alert(`Registration failed: ${data.msg || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Could not connect to the server. Please ensure the backend is running.');
+    }
   };
 
   const handleChange = (e) => {
@@ -93,7 +118,6 @@ export function RegisterPage() {
       borderRadius: '12px',
       cursor: 'pointer',
     },
-   
   };
 
   const parallaxDir = (dx, dy, depth) => ({
@@ -211,8 +235,6 @@ export function RegisterPage() {
 
                 <button type="submit" style={styles.submitButton}>Create Account</button>
               </form>
-
-            
             </div>
           </div>
         </div>

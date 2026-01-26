@@ -82,6 +82,8 @@ export function AboutPage() {
       justifyContent: "center",
       fontSize: "4rem",
       transition: "transform 0.5s",
+      overflow: "hidden",
+
     },
     memberName: { fontSize: "1.3rem", fontWeight: "bold", marginBottom: "0.5rem", color: "#ffffff" },
     memberRole: { color: "#ffffff", marginBottom: "1rem", fontWeight: 500 },
@@ -95,11 +97,12 @@ export function AboutPage() {
     { icon: "🌟", title: "Accessibility", text: "Making quality education accessible to everyone, everywhere" },
   ];
 
-  const team = [
-    { emoji: "👨‍💼", name: "Abdul Moiz", role: "Founder", bio: "7+ Years Experience in Digital Marketing" },
-    { emoji: "👩‍🏫", name: "Hafsa Mubbashar", role: "COO", bio: "Student of CS" },
-    { emoji: "👨‍💻", name: "ABC", role: "CEO", bio: "Masters in CS" },
-  ];
+ const team = [
+  { name: "Abdul Moiz", role: "Founder", bio: "7+ Years Experience in Digital Marketing", image: "/images/team/moiz.jpg.jpeg" },
+  { name: "Hafsa Mubbashar", role: "COO", bio: "Student of CS", image: "/images/team/hafsa.jpeg" },
+  { name: "Mehrose Fatima", role: "CEO", bio: "Masters in CS", image: "/images/team/mehrose.jpeg" },
+];
+
 
   useEffect(() => {
     const members = document.querySelectorAll(".team-member");
@@ -218,8 +221,13 @@ export function AboutPage() {
               {team.map((member, index) => (
                 <div key={index} className="team-member" style={styles.teamMember}>
                   <div className="member-photo" style={styles.memberPhoto}>
-                    {member.emoji}
-                  </div>
+  <img
+    src={member.image}
+    alt={member.name}
+    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  />
+</div>
+
                   <h3 style={styles.memberName}>{member.name}</h3>
                   <p style={styles.memberRole}>{member.role}</p>
                   <p style={styles.memberBio}>{member.bio}</p>

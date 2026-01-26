@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 import { SplashScreen } from './app/components/SplashScreen';
 import { Navbar } from './app/components/Navbar';
@@ -11,10 +13,11 @@ import { BlogsPage } from './app/pages/BlogsPage';
 import { ContactPage } from './app/pages/ContactPage';
 import { RegisterPage } from './app/pages/RegisterPage';
 
+
 function Footer() {
   const styles = {
     footer: {
-      background: ' #526de2',
+      background: ' #081963',
       color: 'white',
       padding: '4rem 2rem 2rem',
       marginTop: 'auto',
@@ -82,19 +85,11 @@ function Footer() {
           <div style={styles.section}>
             <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Newsletter</h4>
             <p style={{ color: 'rgba(255,255,255,0.7)' }}>
-              Subscribe to get updates on new courses and features.
+              Register Now to get updates on new courses and features.
             </p>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input
-                type="email"
-                placeholder="Your email"
-                style={{
-                  flex: 1,
-                  padding: '0.8rem',
-                  borderRadius: '8px',
-                  border: 'none',
-                }}
-              />
+              
+              <Link to="/register">
               <button
                 style={{
                   padding: '0.8rem 1.5rem',
@@ -106,8 +101,9 @@ function Footer() {
                   fontWeight: 'bold',
                 }}
               >
-                Subscribe
+                Register
               </button>
+              </Link>
             </div>
           </div>
         </div>

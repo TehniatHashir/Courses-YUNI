@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export function HomePage() {
-  /* ===== STATE FOR HOVER ANIMATION ===== */
+  
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function HomePage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  /* ===== STYLES ===== */
+  
   const sectionStyles = {
     section: {
       padding: '6rem 2rem',
@@ -44,7 +44,7 @@ export function HomePage() {
     },
   };
 
-  /* ===== DATA ===== */
+  
   const features = [
     { icon: '📚', title: 'Expert Instructors', description: 'Learn from industry professionals' },
     { icon: '🎯', title: 'Hands-on Projects', description: 'Build real-world projects' },
@@ -64,10 +64,10 @@ export function HomePage() {
   const featuredCourses = [
     { title: 'Artificial Intelligence', image: '/Ai.jpg', frontDesc: 'AI, ML & Python from scratch.' },
     { title: 'Cyber Security', image: '/cybersecurity.jpg', frontDesc: 'Ethical Hacking & Security.' },
-    { title: 'Digital Marketing', image: '/digital marketing.jpg', frontDesc: 'SEO, Ads & Social Media.' },
+    { title: 'Web Development', image: '/webdev.jpg', frontDesc: 'Learn HTML, CSS, JavaScript, React, backend basics' },
   ];
 
-  /* ===== PARALLAX FUNCTIONS ===== */
+
   const parallaxDir = (dx, dy, depth) => ({
     transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
     transition: 'transform 0.15s ease-out',
@@ -85,11 +85,11 @@ export function HomePage() {
 
   return (
     <>
-      {/* ===== GLOBAL STYLES ===== */}
+      
       <style>{`
         body { margin: 0; overflow-x: hidden; }
 
-        /* ===== FIXED SPACE BACKGROUND ===== */
+       
         .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
         .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .planet { position: absolute; z-index: 2; transition: transform 0.25s ease; }
@@ -108,7 +108,7 @@ export function HomePage() {
           100% { transform: translate(0,0) rotate(360deg); }
         }
 
-        /* ===== CAROUSEL ===== */
+       
         .carousel-wrapper { height: 500px; display: flex; justify-content: center; align-items: center; perspective: 1400px; }
         .carousel { width: 320px; height: 400px; transform-style: preserve-3d; animation: spin 20s linear infinite; }
         .carousel-item { position: absolute; width: 280px; height: 360px; transform-style: preserve-3d; }
@@ -128,7 +128,7 @@ export function HomePage() {
         .card-back { transform: rotateY(180deg); background: #2574ceef; }
         @keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
-        /* ===== COURSES ===== */
+       
         .courses-reels { display: flex; gap: 1rem; height: 420px; }
         .course-reel { flex: 1; position: relative; border-radius: 18px; overflow: hidden; transition: flex 0.5s; }
         .course-reel:hover { flex: 4; }
@@ -138,7 +138,7 @@ export function HomePage() {
         .course-reel:hover .course-content { opacity:1; transform:translateY(-10px); }
       `}</style>
 
-      {/* ===== FIXED PLANET BACKGROUND ===== */}
+      
       <div className="space-bg">
         <img src="/images/background.png" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
@@ -151,8 +151,7 @@ export function HomePage() {
         <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
       </div>
 
-      {/* ===== HERO ===== */}
-      {/* ===== HERO ===== */}
+      
 <section
   style={{
     ...sectionStyles.section,
@@ -163,17 +162,17 @@ export function HomePage() {
   }}
 >
   <div>
-    <h1 style={{ fontSize: '4.8rem', color: '#f8fc22ef' }}>Welcome to YUNI</h1>
-    <p style={{ fontSize: '2.4rem', color: '#edfd10ef', marginBottom: '2rem' }}>
+    <h1 style={{ fontSize: '4.8rem', color: '#ffffffef' }}>Welcome to YUNI</h1>
+    <p style={{ fontSize: '2.4rem', color: '#ffffffef', marginBottom: '2rem' }}>
       Unlock your potential with world-class courses
     </p>
     <Link
       to="/courses"
       style={{
         padding: '1rem 3rem',
-        background: '#a36b2b',
+        background: '#fbff0ecb',
         borderRadius: '40px',
-        color: '#eff300ef',
+        color: '#ffffffef',
         textDecoration: 'none',
         fontWeight: 'bold',
       }}
@@ -184,19 +183,19 @@ export function HomePage() {
     <p
       style={{
         fontSize: '2.8rem',
-        color: '#fff100',
+        color: '#ffffff',
         marginTop: '4.5rem', 
         lineHeight: '1.5',
       }}
     >
       ستاروں سے آگے جہاں اور بھی ہیں <br />
-      ابھی عشق کے امتحان اور بھی ہیں
+ 
     </p>
   </div>
 </section>
 
 
-      {/* ===== FEATURES ===== */}
+     
       <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Why Choose YUNI?</h2>
         <div className="carousel-wrapper">
@@ -222,7 +221,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ===== STATS ===== */}
+      
       <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Our Impact</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '3rem' }}>
@@ -235,7 +234,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ===== COURSES ===== */}
+      
       <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Popular Courses</h2>
         <div className="courses-reels">
@@ -251,7 +250,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
+    
       <section
         style={{
           ...sectionStyles.section,

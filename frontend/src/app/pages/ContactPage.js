@@ -8,10 +8,29 @@ export function ContactPage() {
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Thank you for your message! We will get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        alert('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Server error. Please try again later.');
+    }
   };
 
   const handleChange = (e) => {
@@ -52,9 +71,9 @@ export function ContactPage() {
   const styles = {
     page: {
       minHeight: '100vh',
-      background: 'transparent', 
+      background: 'transparent',
       position: 'relative',
-      zIndex: 10, 
+      zIndex: 10,
     },
     hero: {
       padding: '4rem 2rem',

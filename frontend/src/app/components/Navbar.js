@@ -6,7 +6,7 @@ export function Navbar() {
   const [animateLogo, setAnimateLogo] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after mount
+    
     setAnimateLogo(true);
   }, []);
 
@@ -21,12 +21,12 @@ export function Navbar() {
 
   return (
     <>
-      {/* Hover + underline animation + logo float animation */}
+      
       <style>{`
         .nav-link {
           position: relative;
           text-decoration: none;
-          color: #6451a8;
+          color: #ffffff;
           padding: 0.5rem 1rem;
           font-weight: 800;
           transition: color 0.3s ease;
