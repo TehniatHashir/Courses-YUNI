@@ -359,7 +359,7 @@ export function CoursesPage() {
 
       {/* ===== ANIMATED BACKGROUND ===== */}
       <div className="space-bg">
-        <img src="/images/background.png" className="bg-layer" />
+        <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
         <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
         <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />

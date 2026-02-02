@@ -1,6 +1,116 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 
+function BounceCards({ items }) {
+  const containerRef = useRef(null);
+   const [expanded, setExpanded] = useState(false); 
+  const [activeIndex, setActiveIndex] = useState(null);
+
+   // Layered transforms for initial positioning
+  const transformStyles = [
+    'rotate(5deg) translateX(-150px)',
+    'rotate(0deg) translateX(-70px)',
+    'rotate(-5deg) translateX(0px)',
+    'rotate(5deg) translateX(70px)',
+    'rotate(-5deg) translateX(150px)',
+  ];
+
+  
+  // Initial bounce animation
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.bounce-card',
+        { scale: 0 },
+        { scale: 1, stagger: 0.15, ease: 'elastic.out(1, 0.6)', delay: 0.4 }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleClick = () => {
+    if (!containerRef.current) return;
+    const q = gsap.utils.selector(containerRef);
+
+    if (!expanded) {
+      // Expand all cards in a line
+      items.forEach((_, i) => {
+        const target = q(`.bounce-card-${i}`);
+        gsap.to(target, {
+          x: i * 220 - ((items.length - 1) * 110), // spacing cards in a line
+          y: 0,
+          scale: 1.2,
+          rotation: 0,
+          zIndex: 10 - i, // maintain stacking order
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+      });
+    } else {
+      // Collapse back to original stack
+      items.forEach((_, i) => {
+        const target = q(`.bounce-card-${i}`);
+        gsap.to(target, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotation: transformStyles[i].match(/rotate\((-?\d+)deg\)/)
+            ? parseInt(transformStyles[i].match(/rotate\((-?\d+)deg\)/)[1])
+            : 0,
+          zIndex: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+      });
+    }
+
+    setExpanded(!expanded);
+  };
+
+    return (
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '300px',
+        marginTop: '4rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className={`bounce-card bounce-card-${i}`}
+          onClick={handleClick} // click on any card expands/collapses all
+          style={{
+            position: 'absolute',
+            width: '200px',
+            height: '200px',
+            borderRadius: '25px',
+            background: 'linear-gradient(135deg,#2c47bd,#af0f87)',
+            boxShadow: '0 15px 35px rgba(0,0,0,.35)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            cursor: 'pointer',
+            transform: transformStyles[i],
+            transition: 'transform 0.4s ease, z-index 0.4s ease',
+            zIndex: 1,
+          }}
+        >
+          <h2 style={{ fontSize: '3.2rem', color: '#fffb02fd' }}>{item.number}</h2>
+          <p style={{ fontSize: '1.3rem', color: '#fff', fontWeight: 600 }}>{item.label}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 export function HomePage() {
   
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -140,7 +250,7 @@ export function HomePage() {
 
       
       <div className="space-bg">
-        <img src="/images/background.png" className="bg-layer" />
+        <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
         <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
         <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
@@ -162,7 +272,7 @@ export function HomePage() {
   }}
 >
   <div>
-    <h1 style={{ fontSize: '4.8rem', color: '#ffffffef' }}>Welcome to YUNI</h1>
+    <h1 style={{ fontSize: '4.8rem', color: '#ffffff' }}>Welcome to YUNI</h1>
     <p style={{ fontSize: '2.4rem', color: '#ffffffef', marginBottom: '2rem' }}>
       Unlock your potential with world-class courses
     </p>
@@ -170,7 +280,7 @@ export function HomePage() {
       to="/courses"
       style={{
         padding: '1rem 3rem',
-        background: '#fbff0ecb',
+        background: '#af0f87f6',
         borderRadius: '40px',
         color: '#ffffffef',
         textDecoration: 'none',
@@ -222,16 +332,9 @@ export function HomePage() {
       </section>
 
       
-      <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
+     <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Our Impact</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '3rem' }}>
-          {stats.map((s, i) => (
-            <div key={i}>
-              <h2 style={{ fontSize: '4rem', color: '#fffb02fd' }}>{s.number}</h2>
-              <p style={{ color: '#fbff15e8', fontWeight: '600' }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
+        <BounceCards items={stats} />
       </section>
 
       
@@ -241,7 +344,7 @@ export function HomePage() {
           {featuredCourses.map((c, i) => (
             <div key={i} className="course-reel">
               <img src={c.image} alt={c.title} />
-              <div className="course-content" style={{ color: '#ffffff' }}>
+              <div className="course-content" style={{ color: '#eb1ea6' }}>
                 <h3>{c.title}</h3>
                 <p>{c.frontDesc}</p>
               </div>

@@ -153,9 +153,9 @@ export function ContactPage() {
         }
       `}</style>
 
-      {/* ===== ANIMATED BACKGROUND ===== */}
+      
       <div className="space-bg">
-        <img src="/images/background.png" className="bg-layer" />
+        <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
         <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
         <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
@@ -166,7 +166,7 @@ export function ContactPage() {
         <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
       </div>
 
-      {/* ===== CONTACT PAGE CONTENT ===== */}
+      
       <div style={styles.page}>
         <div style={styles.hero}>
           <h1 style={styles.heroTitle}>Get In Touch</h1>

@@ -25,7 +25,7 @@ export function RegisterPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // 🔹 Updated handleSubmit to integrate backend API
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,7 +43,7 @@ export function RegisterPage() {
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email,
-          phoneNumber: formData.phone, // backend expects phoneNumber
+          phoneNumber: formData.phone, 
           password: formData.password,
         }),
       });
@@ -178,7 +178,7 @@ export function RegisterPage() {
       `}</style>
 
       <div style={styles.page}>
-        <img src="/images/background.png" className="bg-layer background" />
+        <img src="/images/bacs.jpg" className="bg-layer background" />
         <img src="/images/mid.png" className="bg-layer mid" style={parallaxMid()} />
 
         <img src="/images/earth.png" className="planet"

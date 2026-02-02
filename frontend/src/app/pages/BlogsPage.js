@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 export function BlogsPage() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  // ===== Mouse move for background parallax =====
+ 
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
@@ -33,10 +33,10 @@ export function BlogsPage() {
   const styles = {
     page: {
       minHeight: '100vh',
-      background: 'transparent', // keep it transparent to show animated background
+      background: 'transparent', 
       padding: '4rem 2rem',
       position: 'relative',
-      zIndex: 10, // above background
+      zIndex: 10, 
     },
     container: {
       maxWidth: '1200px',
@@ -56,7 +56,7 @@ export function BlogsPage() {
     },
     subtitle: {
       fontSize: '1.2rem',
-      color: '#fff', // white for visibility
+      color: '#fff', 
     },
     blogsGrid: {
       display: 'grid',
@@ -145,69 +145,75 @@ export function BlogsPage() {
   const blogs = [
     {
       id: 1,
-      title: '10 Tips for Effective Online Learning',
-      excerpt: 'Discover proven strategies to maximize your learning potential in online courses and stay motivated throughout your journey.',
-      author: 'John Doe',
+      title: '10 Tips for Effective  Learning',
+      excerpt: 'Discover proven strategies to maximize your learning potential in  courses and stay motivated throughout your journey.',
+      author: 'Tehniat Hashir',
       avatar: '👨‍💼',
       date: 'Jan 10, 2026',
       readTime: '5 min read',
       icon: '📚',
+      link: 'https://tehniathashir.wixsite.com/learning'
     },
     {
       id: 2,
       title: 'The Future of Web Development in 2026',
       excerpt: 'Explore the latest trends and technologies shaping the future of web development, from AI integration to progressive web apps.',
-      author: 'Sarah Wilson',
+      author: 'Tehniat Hashir',
       avatar: '👩‍💻',
-      date: 'Jan 8, 2026',
+      date: 'Jan 28, 2026',
       readTime: '8 min read',
       icon: '🚀',
+      link: 'https://tehniathashir.wixsite.com/future-of-web-dev'
     },
     {
       id: 3,
       title: 'How to Build Your First Mobile App',
       excerpt: 'A beginner-friendly guide to creating your first mobile application using React Native and modern development practices.',
-      author: 'Mike Chen',
+      author: 'Tehniat Hashir',
       avatar: '👨‍💻',
       date: 'Jan 5, 2026',
       readTime: '10 min read',
       icon: '📱',
+      link: 'https://yourblog.com/mobile-app'
     },
     {
       id: 4,
       title: 'Design Thinking: A Practical Guide',
       excerpt: 'Learn how to apply design thinking principles to solve complex problems and create user-centered solutions.',
-      author: 'Emma Davis',
+      author: 'Tehniat Hashir',
       avatar: '👩‍🎨',
       date: 'Jan 3, 2026',
       readTime: '7 min read',
       icon: '🎨',
+      link: 'https://yourblog.com/online-learning'
     },
     {
       id: 5,
       title: 'Mastering Data Visualization',
       excerpt: 'Transform raw data into compelling visual stories using modern tools and best practices in data visualization.',
-      author: 'Alex Turner',
+      author: 'Tehniat Hashir',
       avatar: '👨‍🔬',
       date: 'Dec 30, 2025',
       readTime: '6 min read',
       icon: '📊',
+      link: 'https://yourblog.com/data-visualization'
     },
     {
       id: 6,
       title: 'AI and Machine Learning Demystified',
       excerpt: 'Break down complex AI concepts into easy-to-understand explanations and practical applications for beginners.',
-      author: 'Lisa Park',
+      author: 'Tehniat Hashir',
       avatar: '👩‍🔬',
-      date: 'Dec 28, 2025',
+      date: 'Feb 2, 2026',
       readTime: '12 min read',
       icon: '🤖',
+      link: 'https://tehniathashir.wixsite.com/aimachinelearning'
     },
   ];
 
   return (
     <>
-      {/* ===== GLOBAL STYLES ===== */}
+     
       <style>{`
         .blog-card:hover {
           transform: translateY(-10px) !important;
@@ -240,9 +246,9 @@ export function BlogsPage() {
         }
       `}</style>
 
-      {/* ===== ANIMATED BACKGROUND ===== */}
+      
       <div className="space-bg">
-        <img src="/images/background.png" className="bg-layer" />
+        <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
         <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
         <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
@@ -253,7 +259,7 @@ export function BlogsPage() {
         <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
       </div>
 
-      {/* ===== BLOGS CONTENT ===== */}
+     
       <div style={styles.page}>
         <div style={styles.container}>
           <div style={styles.header}>
@@ -280,9 +286,10 @@ export function BlogsPage() {
                       <div style={styles.authorAvatar}>{blog.avatar}</div>
                       <span style={styles.authorName}>{blog.author}</span>
                     </div>
-                    <a href="#" className="read-more" style={styles.readMore}>
-                      Read more →
-                    </a>
+                    <a href={blog.link} className="read-more" style={styles.readMore} target="_blank" rel="noopener noreferrer">
+                   Read more →
+                      </a>
+
                   </div>
                 </div>
               </article>
