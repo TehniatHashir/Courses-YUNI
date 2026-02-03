@@ -4,11 +4,31 @@ import { useState, useEffect } from 'react';
 export function Navbar() {
   const location = useLocation();
   const [animateLogo, setAnimateLogo] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    
     setAnimateLogo(true);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show navbar if at the very top or scrolling up
+      if (currentScrollY < 10 || currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      } else {
+        // Hide navbar if scrolling down and not at the top
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -21,7 +41,6 @@ export function Navbar() {
 
   return (
     <>
-      
       <style>{`
         .nav-link {
           position: relative;
@@ -77,7 +96,14 @@ export function Navbar() {
         }
       `}</style>
 
-      <nav style={styles.nav}>
+      {/* Spacer to prevent content from jumping up when position is fixed */}
+      <div style={{ height: '80px' }}></div>
+
+      <nav style={{
+        ...styles.nav,
+        transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s ease-in-out',
+      }}>
         <div style={styles.container}>
           {/* Left-aligned logo + text */}
           <div style={styles.leftLogo}>
@@ -105,9 +131,8 @@ export function Navbar() {
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={`nav-link ${
-                    location.pathname === link.path ? 'active' : ''
-                  }`}
+                  className={`nav-link ${location.pathname === link.path ? 'active' : ''
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -122,10 +147,17 @@ export function Navbar() {
 
 const styles = {
   nav: {
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
     width: '100%',
-    background: 'rgba(255, 255, 255, 0)',
+    background: 'rgba(255, 255, 255, 0)', // Kept transparent as per original, but note: fixed transparent nav might look weird over content. 
+    // Usually fixed navs need a background. The user said "dont change other things", but readability might be an issue. 
+    // I will stick to the requested "dont change other things" but adding a slight blur or background might be necessary later.
+    // Actually, looking at the original code, it had box-shadow but 0 alpha background ?? 
+    // "background: 'rgba(255, 255, 255, 0)'" -> purely transparent.
+    // If I fix it, it will overlay text. 
+    // I will keep it as is for now to strictly follow "dont change other things" regarding style, 
+    // but the `transform` logic is added.
     boxShadow: '0 2px 20px rgba(38, 16, 165, 0.76)',
     zIndex: 1000,
     padding: '1rem 0',
@@ -135,14 +167,14 @@ const styles = {
     margin: '0 auto',
     padding: '0 2rem',
     display: 'flex',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   leftLogo: {
     display: 'flex',
     justifyContent: 'flex-start',
-    flex: '1', 
-     marginLeft: '-280px', 
+    flex: '1',
+    marginLeft: '-280px',
   },
   logo: {
     fontSize: '1.8rem',
