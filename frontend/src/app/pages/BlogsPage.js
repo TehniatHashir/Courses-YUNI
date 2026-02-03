@@ -174,18 +174,18 @@ export function BlogsPage() {
       date: 'Jan 5, 2026',
       readTime: '10 min read',
       icon: '📱',
-      link: 'https://yourblog.com/mobile-app'
+      link: 'https://tehniathashir.wixsite.com/mobileapp'
     },
     {
       id: 4,
-      title: 'Design Thinking: A Practical Guide',
-      excerpt: 'Learn how to apply design thinking principles to solve complex problems and create user-centered solutions.',
+      title: 'Youth Protection Ecosystem',
+      excerpt: 'Pakistan Needs a Youth Protection Ecosystem - Not JUST A Degree.What Happens After Graduation?',
       author: 'Tehniat Hashir',
       avatar: '👩‍🎨',
       date: 'Jan 3, 2026',
       readTime: '7 min read',
-      icon: '🎨',
-      link: 'https://yourblog.com/online-learning'
+      icon: '🎓',
+      link: 'https://tehniathashir.wixsite.com/my-site-11'
     },
     {
       id: 5,
@@ -196,7 +196,7 @@ export function BlogsPage() {
       date: 'Dec 30, 2025',
       readTime: '6 min read',
       icon: '📊',
-      link: 'https://yourblog.com/data-visualization'
+      link: 'https://tehniathashir.wixsite.com/datavisualization'
     },
     {
       id: 6,
