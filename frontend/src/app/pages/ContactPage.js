@@ -8,7 +8,7 @@ export function ContactPage() {
     message: '',
   });
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,13 +77,13 @@ export function ContactPage() {
     },
     hero: {
       padding: '4rem 2rem',
-      background: 'rgba(102, 126, 234, 0.21)',
+      background: 'transparent',
       color: 'white',
       textAlign: 'center',
       borderRadius: '15px',
     },
-    heroTitle: { fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' },
-    heroSubtitle: { fontSize: '1.2rem', opacity: 0.95 },
+    heroTitle: { fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem', animation: 'fadeInUp 0.8s ease-out' },
+    heroSubtitle: { fontSize: '1.2rem', opacity: 0.95, animation: 'fadeInUp 0.8s ease-out 0.2s backwards' },
     content: { padding: '5rem 2rem' },
     container: {
       maxWidth: '1200px',
@@ -133,6 +133,11 @@ export function ContactPage() {
           transform: scale(1.15) rotate(10deg) !important;
         }
 
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         body { margin: 0; overflow-x: hidden; }
         .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
         .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -153,20 +158,20 @@ export function ContactPage() {
         }
       `}</style>
 
-      
+
       <div className="space-bg">
-        <img src="/images/bacs.jpg" className="bg-layer" />
-        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
-        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
-        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
-        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} />
-        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} />
-        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} />
-        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} />
-        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
+        <img src="/images/bacs.jpg" className="bg-layer" alt="" />
+        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} alt="" />
+        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} alt="" />
+        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
+        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
+        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
+        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
+        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
+        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} alt="" />
       </div>
 
-      
+
       <div style={styles.page}>
         <div style={styles.hero}>
           <h1 style={styles.heroTitle}>Get In Touch</h1>
@@ -254,7 +259,7 @@ export function ContactPage() {
                 <h3 style={styles.infoTitle}>Call Us</h3>
                 <p style={styles.infoText}>
                   +92 334 1504808<br />
-                  Mon-Fri, 9am-6pm 
+                  Mon-Fri, 9am-6pm
                 </p>
               </div>
 

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function RegisterPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -25,7 +27,7 @@ export function RegisterPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,7 +45,7 @@ export function RegisterPage() {
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email,
-          phoneNumber: formData.phone, 
+          phoneNumber: formData.phone,
           password: formData.password,
         }),
       });
@@ -96,8 +98,9 @@ export function RegisterPage() {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
+      animation: 'fadeInUp 0.8s ease-out',
     },
-    subtitle: { color: '#666', fontSize: '1.1rem' },
+    subtitle: { color: '#666', fontSize: '1.1rem', animation: 'fadeInUp 0.8s ease-out 0.2s backwards' },
     form: { display: 'flex', flexDirection: 'column', gap: '1.5rem' },
     inputGroup: { display: 'flex', flexDirection: 'column', gap: '0.5rem' },
     label: { fontSize: '0.95rem', fontWeight: 600, color: '#555' },
@@ -117,6 +120,24 @@ export function RegisterPage() {
       border: 'none',
       borderRadius: '12px',
       cursor: 'pointer',
+      flex: 1,
+    },
+    cancelButton: {
+      padding: '1.2rem',
+      fontSize: '1.1rem',
+      fontWeight: 'bold',
+      background: '#ff4d4d',
+      color: 'white',
+      border: 'none',
+      borderRadius: '12px',
+      cursor: 'pointer',
+      flex: 1,
+      transition: 'background 0.3s',
+    },
+    buttonGroup: {
+      display: 'flex',
+      gap: '1rem',
+      marginTop: '1rem',
     },
   };
 
@@ -142,6 +163,11 @@ export function RegisterPage() {
         @keyframes slideInScale {
           from { opacity: 0; transform: translateY(30px) scale(0.9); }
           to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes floatOrbit {
@@ -178,26 +204,26 @@ export function RegisterPage() {
       `}</style>
 
       <div style={styles.page}>
-        <img src="/images/bacs.jpg" className="bg-layer background" />
-        <img src="/images/mid.png" className="bg-layer mid" style={parallaxMid()} />
+        <img src="/images/bacs.jpg" className="bg-layer background" alt="" />
+        <img src="/images/mid.png" className="bg-layer mid" style={parallaxMid()} alt="" />
 
         <img src="/images/earth.png" className="planet"
-          style={{ top: '6%', left: '4%', width: '280px', ...parallaxDir(1, -1, 1.1) }} />
+          style={{ top: '6%', left: '4%', width: '280px', ...parallaxDir(1, -1, 1.1) }} alt="" />
 
         <img src="/images/mars.png" className="planet"
-          style={{ top: '18%', right: '8%', width: '160px', ...parallaxDir(-1, 1, 0.9) }} />
+          style={{ top: '18%', right: '8%', width: '160px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
 
         <img src="/images/jupiter.png" className="planet"
-          style={{ bottom: '22%', left: '12%', width: '240px', ...parallaxDir(1, 1, 1.2) }} />
+          style={{ bottom: '22%', left: '12%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
 
         <img src="/images/venus.png" className="planet"
-          style={{ top: '52%', right: '20%', width: '180px', ...parallaxDir(-0.8, -1, 1) }} />
+          style={{ top: '52%', right: '20%', width: '180px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
 
         <img src="/images/saturn.png" className="planet continuous"
-          style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} />
+          style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
 
         <img src="/images/rock.png" className="planet"
-          style={{ top: '32%', left: '42%', width: '130px', ...parallaxDir(-1.2, 0.8, 1.3) }} />
+          style={{ top: '32%', left: '42%', width: '130px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
           <div style={styles.container}>
@@ -233,7 +259,10 @@ export function RegisterPage() {
                   <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} style={styles.input} required />
                 </div>
 
-                <button type="submit" style={styles.submitButton}>Create Account</button>
+                <div style={styles.buttonGroup}>
+                  <button type="button" onClick={() => navigate('/')} style={styles.cancelButton}>Cancel</button>
+                  <button type="submit" style={styles.submitButton}>Create Account</button>
+                </div>
               </form>
             </div>
           </div>
