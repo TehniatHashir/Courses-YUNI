@@ -66,8 +66,8 @@ export function AboutPage() {
     cardIcon: { fontSize: "3.5rem", marginBottom: "1rem", display: "block" },
     cardTitle: { fontSize: "1.3rem", fontWeight: "bold", marginBottom: "0.8rem", color: "#333" },
     cardText: { color: "#666", lineHeight: "1.6" },
-    story: { background: "#2f5983a8", padding: "5rem 2rem" },
-    storyContent: { maxWidth: "800px", margin: "0 auto", lineHeight: "1.8", fontSize: "1.1rem", color: "#ffffff" },
+    story: { background: "transparent", padding: "5rem 2rem" },
+    storyContent: { maxWidth: "800px", margin: "0 auto", lineHeight: "1.8", fontSize: "1.1rem", color: "#ffffff", textAlign: "center" },
     team: { padding: "5rem 2rem" },
     teamGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2.5rem", marginTop: "3rem" },
     teamMember: { textAlign: "center", transition: "transform 0.3s" },
@@ -97,11 +97,11 @@ export function AboutPage() {
     { icon: "🌟", title: "Accessibility", text: "Making quality education accessible to everyone, everywhere" },
   ];
 
- const team = [
-  { name: "Abdul Moiz", role: "Founder", bio: "7+ Years Experience in Digital Marketing", image: "/images/team/moiz.jpg.jpeg" },
-  { name: "Hafsa Mubbashar", role: "COO", bio: "Student of CS", image: "/images/team/hafsa.jpeg" },
-  { name: "Mehrose Fatima", role: "CEO", bio: "Masters in CS", image: "/images/team/mehrose.jpeg" },
-];
+  const team = [
+    { name: "Abdul Moiz", role: "Founder", bio: "7+ Years Experience in Digital Marketing", image: "/images/team/moiz.jpg.jpeg" },
+    { name: "Hafsa Mubbashar", role: "COO", bio: "Student of CS", image: "/images/team/hafsa.jpeg" },
+    { name: "Mehrose Fatima", role: "CEO", bio: "Masters in CS", image: "/images/team/mehrose.jpeg" },
+  ];
 
 
   useEffect(() => {
@@ -140,7 +140,7 @@ export function AboutPage() {
       }
       .value-card:hover { transform: translateY(-10px) !important; box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important; }
       .team-member:hover { transform: scale(1.05) !important; }
-      .team-member:hover .member-photo { transform: rotate(360deg) !important; }
+      .team-member:hover .member-photo { transform: scale(1.1) !important; }
 
       .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
       .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -162,15 +162,15 @@ export function AboutPage() {
 
       {/* ===== ANIMATED BACKGROUND ===== */}
       <div className="space-bg">
-        <img src="/images/bacs.jpg" className="bg-layer" />
-        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
-        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
-        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
-        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} />
-        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} />
-        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} />
-        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} />
-        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
+        <img src="/images/bacs.jpg" className="bg-layer" alt="" />
+        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} alt="" />
+        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} alt="" />
+        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
+        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
+        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
+        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
+        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
+        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} alt="" />
       </div>
 
       <div style={styles.page}>
@@ -221,12 +221,12 @@ export function AboutPage() {
               {team.map((member, index) => (
                 <div key={index} className="team-member" style={styles.teamMember}>
                   <div className="member-photo" style={styles.memberPhoto}>
-  <img
-    src={member.image}
-    alt={member.name}
-    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-  />
-</div>
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
 
                   <h3 style={styles.memberName}>{member.name}</h3>
                   <p style={styles.memberRole}>{member.role}</p>

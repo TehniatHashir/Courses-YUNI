@@ -49,14 +49,15 @@ export function BlogsPage() {
     title: {
       fontSize: '3rem',
       fontWeight: 'bold',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
+      marginTop: '1rem',
       marginBottom: '1rem',
+      color: '#ffffff',
+      animation: 'fadeInUp 0.8s ease-out',
     },
     subtitle: {
       fontSize: '1.2rem',
       color: '#fff',
+      animation: 'fadeInUp 0.8s ease-out 0.2s backwards',
     },
     blogsGrid: {
       display: 'grid',
@@ -226,6 +227,11 @@ export function BlogsPage() {
           gap: 1rem !important;
         }
 
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         body { margin: 0; overflow-x: hidden; }
         .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
         .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -248,15 +254,15 @@ export function BlogsPage() {
 
 
       <div className="space-bg">
-        <img src="/images/bacs.jpg" className="bg-layer" />
-        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
-        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} />
-        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} />
-        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} />
-        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} />
-        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} />
-        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} />
-        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
+        <img src="/images/bacs.jpg" className="bg-layer" alt="" />
+        <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} alt="" />
+        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} alt="" />
+        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
+        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
+        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
+        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
+        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
+        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} alt="" />
       </div>
 
 
