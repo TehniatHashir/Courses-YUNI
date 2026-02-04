@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 export function BlogsPage() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
- 
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
@@ -33,10 +33,10 @@ export function BlogsPage() {
   const styles = {
     page: {
       minHeight: '100vh',
-      background: 'transparent', 
+      background: 'transparent',
       padding: '4rem 2rem',
       position: 'relative',
-      zIndex: 10, 
+      zIndex: 10,
     },
     container: {
       maxWidth: '1200px',
@@ -56,7 +56,7 @@ export function BlogsPage() {
     },
     subtitle: {
       fontSize: '1.2rem',
-      color: '#fff', 
+      color: '#fff',
     },
     blogsGrid: {
       display: 'grid',
@@ -213,7 +213,7 @@ export function BlogsPage() {
 
   return (
     <>
-     
+
       <style>{`
         .blog-card:hover {
           transform: translateY(-10px) !important;
@@ -246,7 +246,7 @@ export function BlogsPage() {
         }
       `}</style>
 
-      
+
       <div className="space-bg">
         <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
@@ -259,7 +259,7 @@ export function BlogsPage() {
         <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
       </div>
 
-     
+
       <div style={styles.page}>
         <div style={styles.container}>
           <div style={styles.header}>
@@ -287,8 +287,8 @@ export function BlogsPage() {
                       <span style={styles.authorName}>{blog.author}</span>
                     </div>
                     <a href={blog.link} className="read-more" style={styles.readMore} target="_blank" rel="noopener noreferrer">
-                   Read more →
-                      </a>
+                      Read more →
+                    </a>
 
                   </div>
                 </div>

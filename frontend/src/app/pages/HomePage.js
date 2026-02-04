@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 function BounceCards({ items }) {
   const containerRef = useRef(null);
-   const [expanded, setExpanded] = useState(false); 
+  const [expanded, setExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
 
-   // Layered transforms for initial positioning
+  // Layered transforms for initial positioning
   const transformStyles = [
     'rotate(5deg) translateX(-150px)',
     'rotate(0deg) translateX(-70px)',
@@ -16,7 +16,7 @@ function BounceCards({ items }) {
     'rotate(-5deg) translateX(150px)',
   ];
 
-  
+
   // Initial bounce animation
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -69,7 +69,7 @@ function BounceCards({ items }) {
     setExpanded(!expanded);
   };
 
-    return (
+  return (
     <div
       ref={containerRef}
       style={{
@@ -112,7 +112,7 @@ function BounceCards({ items }) {
   );
 }
 export function HomePage() {
-  
+
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export function HomePage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  
+
   const sectionStyles = {
     section: {
       padding: '6rem 2rem',
@@ -154,7 +154,7 @@ export function HomePage() {
     },
   };
 
-  
+
   const features = [
     { icon: '📚', title: 'Expert Instructors', description: 'Learn from industry professionals' },
     { icon: '🎯', title: 'Hands-on Projects', description: 'Build real-world projects' },
@@ -195,7 +195,7 @@ export function HomePage() {
 
   return (
     <>
-      
+
       <style>{`
         body { margin: 0; overflow-x: hidden; }
 
@@ -248,7 +248,7 @@ export function HomePage() {
         .course-reel:hover .course-content { opacity:1; transform:translateY(-10px); }
       `}</style>
 
-      
+
       <div className="space-bg">
         <img src="/images/bacs.jpg" className="bg-layer" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} />
@@ -261,51 +261,51 @@ export function HomePage() {
         <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} />
       </div>
 
-      
-<section
-  style={{
-    ...sectionStyles.section,
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}
->
-  <div>
-    <h1 style={{ fontSize: '4.8rem', color: '#ffffff' }}>Welcome to YUNI</h1>
-    <p style={{ fontSize: '2.4rem', color: '#ffffffef', marginBottom: '2rem' }}>
-      Unlock your potential with world-class courses
-    </p>
-    <Link
-      to="/courses"
-      style={{
-        padding: '1rem 3rem',
-        background: '#af0f87f6',
-        borderRadius: '40px',
-        color: '#ffffffef',
-        textDecoration: 'none',
-        fontWeight: 'bold',
-      }}
-    >
-      Explore Courses
-    </Link>
-    
-    <p
-      style={{
-        fontSize: '2.8rem',
-        color: '#ffffff',
-        marginTop: '4.5rem', 
-        lineHeight: '1.5',
-      }}
-    >
-      ستاروں سے آگے جہاں اور بھی ہیں <br />
- 
-    </p>
-  </div>
-</section>
+
+      <section
+        style={{
+          ...sectionStyles.section,
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div>
+          <h1 style={{ fontSize: '4.8rem', color: '#ffffff' }}>Welcome to YUNI</h1>
+          <p style={{ fontSize: '2.4rem', color: '#ffffffef', marginBottom: '2rem' }}>
+            Unlock your potential with world-class courses
+          </p>
+          <Link
+            to="/courses"
+            style={{
+              padding: '1rem 3rem',
+              background: '#af0f87f6',
+              borderRadius: '40px',
+              color: '#ffffffef',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+            }}
+          >
+            Explore Courses
+          </Link>
+
+          <p
+            style={{
+              fontSize: '2.8rem',
+              color: '#ffffff',
+              marginTop: '4.5rem',
+              lineHeight: '1.5',
+            }}
+          >
+            ستاروں سے آگے جہاں اور بھی ہیں <br />
+
+          </p>
+        </div>
+      </section>
 
 
-     
+
       <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Why Choose YUNI?</h2>
         <div className="carousel-wrapper">
@@ -331,20 +331,20 @@ export function HomePage() {
         </div>
       </section>
 
-      
-     <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
+
+      <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Our Impact</h2>
         <BounceCards items={stats} />
       </section>
 
-      
+
       <section style={{ ...sectionStyles.section, marginTop: '6rem' }}>
         <h2 style={sectionStyles.title}>Popular Courses</h2>
         <div className="courses-reels">
           {featuredCourses.map((c, i) => (
             <div key={i} className="course-reel">
               <img src={c.image} alt={c.title} />
-              <div className="course-content" style={{ color: '#eb1ea6' }}>
+              <div className="course-content" style={{ color: '#9c18daff' }}>
                 <h3>{c.title}</h3>
                 <p>{c.frontDesc}</p>
               </div>
@@ -353,7 +353,7 @@ export function HomePage() {
         </div>
       </section>
 
-    
+
       <section
         style={{
           ...sectionStyles.section,
