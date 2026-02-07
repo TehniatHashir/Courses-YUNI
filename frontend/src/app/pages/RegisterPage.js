@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000';
+
 export function RegisterPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -37,7 +39,7 @@ export function RegisterPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/register', {
+      const response = await fetch(`${API_BASE}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000';
+
 export function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -13,7 +15,7 @@ export function ContactPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
