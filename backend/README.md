@@ -34,7 +34,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-**Note for Python 3.13**: We use `psycopg[binary]` (Psycopg v3) for compatibility. The connection string in `app/config.py` automatically handles the `postgresql+psycopg://` prefix.
+**Note for Python 3.13**: We use `psycopg2-binary` (Psycopg v2) for compatibility. The connection string in `app/config.py` automatically handles the `postgresql+psycopg2://` prefix.
 
 ### 4. Database Migrations
 Initialize the database:

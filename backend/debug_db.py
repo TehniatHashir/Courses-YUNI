@@ -4,9 +4,9 @@ from sqlalchemy import create_engine, inspect, text
 
 load_dotenv()
 
-db_url = os.environ.get('DATABASE_URL', '').replace('postgresql://', 'postgresql+psycopg://')
+db_url = os.environ.get('DATABASE_URL', '').replace('postgresql://', 'postgresql+psycopg2://')
 if not db_url:
-    db_url = 'postgresql+psycopg://postgres:1122@localhost:5432/yuni'
+    db_url = 'postgresql+psycopg2://postgres:1122@localhost:5432/yuni'
 
 print(f"Connecting to: {db_url.split('@')[1]}") # Hide credentials
 engine = create_engine(db_url)
