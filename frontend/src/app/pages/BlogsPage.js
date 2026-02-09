@@ -2,9 +2,21 @@ import { useState, useEffect } from 'react';
 
 export function BlogsPage() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
+    if (isMobile) return; // Skip parallax on mobile
+
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
       const x = ((e.clientX - innerWidth / 2) / innerWidth) * 600;
@@ -13,14 +25,18 @@ export function BlogsPage() {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
-  const parallaxDir = (dx, dy, depth) => ({
-    transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
-    transition: 'transform 0.15s ease-out',
-  });
+  const parallaxDir = (dx, dy, depth) => {
+    if (isMobile) return {};
+    return {
+      transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
+      transition: 'transform 0.15s ease-out',
+    };
+  };
 
   const parallaxMid = () => {
+    if (isMobile) return {};
     const maxMove = 35;
     const x = Math.max(Math.min(offset.x * 0.07, maxMove), -maxMove);
     const y = Math.max(Math.min(offset.y * 0.07, maxMove), -maxMove) + 100;
@@ -30,11 +46,15 @@ export function BlogsPage() {
     };
   };
 
+  const getPlanetSize = (desktopSize) => {
+    return isMobile ? `${parseInt(desktopSize) * 0.5}px` : desktopSize;
+  };
+
   const styles = {
     page: {
       minHeight: '100vh',
       background: 'transparent',
-      padding: '4rem 2rem',
+      padding: isMobile ? '2rem 1rem' : '4rem 2rem',
       position: 'relative',
       zIndex: 10,
     },
@@ -44,10 +64,10 @@ export function BlogsPage() {
     },
     header: {
       textAlign: 'center',
-      marginBottom: '4rem',
+      marginBottom: isMobile ? '2rem' : '4rem',
     },
     title: {
-      fontSize: '3rem',
+      fontSize: isMobile ? 'clamp(2rem, 6vw, 3rem)' : '3rem',
       fontWeight: 'bold',
       marginTop: '1rem',
       marginBottom: '1rem',
@@ -55,14 +75,14 @@ export function BlogsPage() {
       animation: 'fadeInUp 0.8s ease-out',
     },
     subtitle: {
-      fontSize: '1.2rem',
+      fontSize: isMobile ? '1rem' : '1.2rem',
       color: '#fff',
       animation: 'fadeInUp 0.8s ease-out 0.2s backwards',
     },
     blogsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-      gap: '2.5rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(350px, 1fr))',
+      gap: isMobile ? '1.5rem' : '2.5rem',
     },
     blogCard: {
       background: 'white',
@@ -75,26 +95,26 @@ export function BlogsPage() {
     },
     blogImage: {
       width: '100%',
-      height: '220px',
+      height: isMobile ? '180px' : '220px',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: '4rem',
+      fontSize: isMobile ? '3rem' : '4rem',
       transition: 'transform 0.4s',
     },
     blogContent: {
-      padding: '1.8rem',
+      padding: isMobile ? '1.2rem' : '1.8rem',
     },
     blogMeta: {
       display: 'flex',
       gap: '1rem',
       marginBottom: '1rem',
-      fontSize: '0.9rem',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
       color: '#999',
     },
     blogTitle: {
-      fontSize: '1.5rem',
+      fontSize: isMobile ? '1.25rem' : '1.5rem',
       fontWeight: 'bold',
       marginBottom: '1rem',
       color: '#333',
@@ -104,6 +124,7 @@ export function BlogsPage() {
       color: '#666',
       lineHeight: '1.6',
       marginBottom: '1.5rem',
+      fontSize: isMobile ? '0.9rem' : '1rem',
     },
     blogFooter: {
       display: 'flex',
@@ -111,6 +132,8 @@ export function BlogsPage() {
       alignItems: 'center',
       paddingTop: '1rem',
       borderTop: '1px solid #eee',
+      flexWrap: 'wrap',
+      gap: '0.5rem',
     },
     readMore: {
       color: '#667eea',
@@ -120,6 +143,7 @@ export function BlogsPage() {
       alignItems: 'center',
       gap: '0.5rem',
       transition: 'gap 0.3s',
+      fontSize: isMobile ? '0.9rem' : '1rem',
     },
     author: {
       display: 'flex',
@@ -137,7 +161,7 @@ export function BlogsPage() {
       fontSize: '1.2rem',
     },
     authorName: {
-      fontSize: '0.9rem',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
       color: '#555',
       fontWeight: 500,
     },
@@ -146,8 +170,8 @@ export function BlogsPage() {
   const blogs = [
     {
       id: 1,
-      title: '10 Tips for Effective  Learning',
-      excerpt: 'Discover proven strategies to maximize your learning potential in  courses and stay motivated throughout your journey.',
+      title: '10 Tips for Effective Learning',
+      excerpt: 'Discover proven strategies to maximize your learning potential in courses and stay motivated throughout your journey.',
       author: 'Tehniat Hashir',
       avatar: '👨‍💼',
       date: 'Jan 10, 2026',
@@ -214,17 +238,22 @@ export function BlogsPage() {
 
   return (
     <>
-
       <style>{`
-        .blog-card:hover {
-          transform: translateY(-10px) !important;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
-        }
-        .blog-card:hover .blog-image {
-          transform: scale(1.1) !important;
-        }
-        .blog-card:hover .read-more {
-          gap: 1rem !important;
+        /* Desktop-only hover effects */
+        @media (min-width: 768px) {
+          .blog-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+          }
+          .blog-card:hover .blog-image {
+            transform: scale(1.1) !important;
+          }
+          .blog-card:hover .read-more {
+            gap: 1rem !important;
+          }
+          .planet:hover { transform: scale(1.15); }
+          .orbit { animation: floatOrbit 14s linear infinite; }
+          .continuous-orbit { animation: continuousOrbit 12s linear infinite; }
         }
 
         @keyframes fadeInUp {
@@ -236,9 +265,6 @@ export function BlogsPage() {
         .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
         .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .planet { position: absolute; z-index: 2; transition: transform 0.25s ease; }
-        .planet:hover { transform: scale(1.15); }
-        .orbit { animation: floatOrbit 14s linear infinite; }
-        .continuous-orbit { animation: continuousOrbit 12s linear infinite; }
 
         @keyframes floatOrbit {
           0% { transform: translate(0,0) rotate(0deg); }
@@ -250,21 +276,33 @@ export function BlogsPage() {
           50% { transform: translate(-50px,40px) rotate(180deg); }
           100% { transform: translate(0,0) rotate(360deg); }
         }
-      `}</style>
 
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+          .orbit,
+          .continuous-orbit,
+          .planet {
+            animation: none !important;
+          }
+          
+          .blog-card:hover,
+          .planet:hover {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       <div className="space-bg">
         <img src="/images/bacs.jpg" className="bg-layer" alt="" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} alt="" />
-        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} alt="" />
-        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
-        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
-        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
-        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
-        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
-        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} alt="" />
+        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: getPlanetSize('260px'), ...parallaxDir(1, -1, 1.1) }} alt="" />
+        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: getPlanetSize('150px'), ...parallaxDir(-1, 1, 0.9) }} alt="" />
+        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: getPlanetSize('240px'), ...parallaxDir(1, 1, 1.2) }} alt="" />
+        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: getPlanetSize('170px'), ...parallaxDir(-0.8, -1, 1) }} alt="" />
+        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: getPlanetSize('260px'), ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
+        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: getPlanetSize('120px'), ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
+        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: getPlanetSize('180px'), ...parallaxDir(0.8, -0.5, 1) }} alt="" />
       </div>
-
 
       <div style={styles.page}>
         <div style={styles.container}>
@@ -295,7 +333,6 @@ export function BlogsPage() {
                     <a href={blog.link} className="read-more" style={styles.readMore} target="_blank" rel="noopener noreferrer">
                       Read more →
                     </a>
-
                   </div>
                 </div>
               </article>
