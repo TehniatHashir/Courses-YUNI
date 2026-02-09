@@ -116,8 +116,8 @@ export function Navbar() {
                 src="/Yuni.png"
                 alt="YUNI Logo"
                 style={{
-                  width: '52px',
-                  height: '52px',
+                  width: '100px',
+                  height: '100px',
                   objectFit: 'contain',
                 }}
               />
