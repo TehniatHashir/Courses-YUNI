@@ -15,11 +15,22 @@ import { RegisterPage } from './app/pages/RegisterPage';
 
 
 function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const styles = {
     footer: {
       background: ' #081963',
       color: 'white',
-      padding: '4rem 2rem 2rem',
+      padding: isMobile ? '3rem 1.5rem 1.5rem' : '4rem 2rem 2rem',
       marginTop: 'auto',
     },
     container: {
@@ -28,9 +39,9 @@ function Footer() {
     },
     grid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '3rem',
-      marginBottom: '3rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: isMobile ? '2rem' : '3rem',
+      marginBottom: isMobile ? '2rem' : '3rem',
     },
     section: {
       display: 'flex',
@@ -38,7 +49,7 @@ function Footer() {
       gap: '1rem',
     },
     title: {
-      fontSize: '1.5rem',
+      fontSize: isMobile ? '1.25rem' : '1.5rem',
       fontWeight: 'bold',
       marginBottom: '0.5rem',
     },
@@ -46,12 +57,14 @@ function Footer() {
       color: 'rgba(255,255,255,0.7)',
       textDecoration: 'none',
       cursor: 'pointer',
+      fontSize: isMobile ? '0.9rem' : '1rem',
     },
     bottom: {
       borderTop: '1px solid rgba(255,255,255,0.1)',
-      paddingTop: '2rem',
+      paddingTop: isMobile ? '1.5rem' : '2rem',
       textAlign: 'center',
       color: 'rgba(255,255,255,0.6)',
+      fontSize: isMobile ? '0.85rem' : '1rem',
     },
   };
 
@@ -61,13 +74,13 @@ function Footer() {
         <div style={styles.grid}>
           <div style={styles.section}>
             <h3 style={styles.title}>YUNI</h3>
-            <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>
+            <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6', fontSize: isMobile ? '0.9rem' : '1rem' }}>
               Empowering learners worldwide with quality education and innovative teaching methods.
             </p>
           </div>
 
           <div style={styles.section}>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Quick Links</h4>
+            <h4 style={{ fontSize: isMobile ? '1rem' : '1.1rem', fontWeight: 'bold' }}>Quick Links</h4>
             <a href="/" style={styles.link}>Home</a>
             <a href="/courses" style={styles.link}>Courses</a>
             <a href="/about" style={styles.link}>About Us</a>
@@ -75,7 +88,7 @@ function Footer() {
           </div>
 
           <div style={styles.section}>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Support</h4>
+            <h4 style={{ fontSize: isMobile ? '1rem' : '1.1rem', fontWeight: 'bold' }}>Support</h4>
             <a href="/contact" style={styles.link}>Contact Us</a>
             <a href="#" style={styles.link}>FAQ</a>
             <a href="#" style={styles.link}>Help Center</a>
@@ -83,26 +96,27 @@ function Footer() {
           </div>
 
           <div style={styles.section}>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Newsletter</h4>
-            <p style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <h4 style={{ fontSize: isMobile ? '1rem' : '1.1rem', fontWeight: 'bold' }}>Newsletter</h4>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: isMobile ? '0.9rem' : '1rem' }}>
               Register Now to get updates on new courses and features.
             </p>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              
               <Link to="/register">
-              <button
-                style={{
-                  padding: '0.8rem 1.5rem',
-                  background: 'linear-gradient(135deg, #7184dd 0%, #455dc9 100%)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                }}
-              >
-                Register
-              </button>
+                <button
+                  style={{
+                    padding: isMobile ? '0.7rem 1.2rem' : '0.8rem 1.5rem',
+                    background: 'linear-gradient(135deg, #7184dd 0%, #455dc9 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: isMobile ? '0.9rem' : '1rem',
+                    minHeight: '44px',
+                  }}
+                >
+                  Register
+                </button>
               </Link>
             </div>
           </div>

@@ -7,7 +7,18 @@ export function ContactPage() {
     subject: '',
     message: '',
   });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,9 +51,9 @@ export function ContactPage() {
     });
   };
 
-  // ===== Mouse parallax effect for background =====
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
   useEffect(() => {
+    if (isMobile) return; // Skip parallax on mobile
+
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
       const x = ((e.clientX - innerWidth / 2) / innerWidth) * 600;
@@ -51,14 +62,18 @@ export function ContactPage() {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
-  const parallaxDir = (dx, dy, depth) => ({
-    transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
-    transition: 'transform 0.15s ease-out',
-  });
+  const parallaxDir = (dx, dy, depth) => {
+    if (isMobile) return {};
+    return {
+      transform: `translate(${offset.x * dx * depth}px, ${offset.y * dy * depth}px)`,
+      transition: 'transform 0.15s ease-out',
+    };
+  };
 
   const parallaxMid = () => {
+    if (isMobile) return {};
     const maxMove = 35;
     const x = Math.max(Math.min(offset.x * 0.07, maxMove), -maxMove);
     const y = Math.max(Math.min(offset.y * 0.07, maxMove), -maxMove) + 100;
@@ -66,6 +81,10 @@ export function ContactPage() {
       transform: `translate(${x}px, ${y}px)`,
       transition: 'transform 0.2s ease-out',
     };
+  };
+
+  const getPlanetSize = (desktopSize) => {
+    return isMobile ? `${parseInt(desktopSize) * 0.5}px` : desktopSize;
   };
 
   const styles = {
@@ -76,61 +95,129 @@ export function ContactPage() {
       zIndex: 10,
     },
     hero: {
-      padding: '4rem 2rem',
+      padding: isMobile ? '3rem 1rem' : '4rem 2rem',
       background: 'transparent',
       color: 'white',
       textAlign: 'center',
       borderRadius: '15px',
     },
-    heroTitle: { fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem', animation: 'fadeInUp 0.8s ease-out' },
-    heroSubtitle: { fontSize: '1.2rem', opacity: 0.95, animation: 'fadeInUp 0.8s ease-out 0.2s backwards' },
-    content: { padding: '5rem 2rem' },
+    heroTitle: {
+      fontSize: isMobile ? 'clamp(2rem, 6vw, 3rem)' : '3rem',
+      fontWeight: 'bold',
+      marginBottom: '1rem',
+      animation: 'fadeInUp 0.8s ease-out'
+    },
+    heroSubtitle: {
+      fontSize: isMobile ? '1rem' : '1.2rem',
+      opacity: 0.95,
+      animation: 'fadeInUp 0.8s ease-out 0.2s backwards'
+    },
+    content: { padding: isMobile ? '3rem 1rem' : '5rem 2rem' },
     container: {
       maxWidth: '1200px',
       margin: '0 auto',
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '3rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: isMobile ? '2rem' : '3rem',
     },
     formSection: {
       background: 'white',
-      padding: '2.5rem',
+      padding: isMobile ? '1.5rem' : '2.5rem',
       borderRadius: '20px',
       boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
     },
-    sectionTitle: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#333' },
+    sectionTitle: {
+      fontSize: isMobile ? '1.5rem' : '2rem',
+      fontWeight: 'bold',
+      marginBottom: '1.5rem',
+      color: '#333'
+    },
     form: { display: 'flex', flexDirection: 'column', gap: '1.5rem' },
     inputGroup: { display: 'flex', flexDirection: 'column', gap: '0.5rem' },
     label: { fontSize: '0.95rem', fontWeight: 600, color: '#555' },
-    input: { padding: '1rem', fontSize: '1rem', border: '2px solid #e0e0e0', borderRadius: '10px', outline: 'none', transition: 'border-color 0.3s, transform 0.3s' },
-    textarea: { padding: '1rem', fontSize: '1rem', border: '2px solid #e0e0e0', borderRadius: '10px', outline: 'none', minHeight: '150px', resize: 'vertical', fontFamily: 'inherit', transition: 'border-color 0.3s, transform 0.3s' },
-    submitButton: { padding: '1.2rem', fontSize: '1.1rem', fontWeight: 'bold', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', transition: 'transform 0.3s, box-shadow 0.3s' },
+    input: {
+      padding: isMobile ? '0.9rem' : '1rem',
+      fontSize: '1rem',
+      border: '2px solid #e0e0e0',
+      borderRadius: '10px',
+      outline: 'none',
+      transition: 'border-color 0.3s, transform 0.3s',
+      minHeight: '44px',
+    },
+    textarea: {
+      padding: isMobile ? '0.9rem' : '1rem',
+      fontSize: '1rem',
+      border: '2px solid #e0e0e0',
+      borderRadius: '10px',
+      outline: 'none',
+      minHeight: isMobile ? '120px' : '150px',
+      resize: 'vertical',
+      fontFamily: 'inherit',
+      transition: 'border-color 0.3s, transform 0.3s'
+    },
+    submitButton: {
+      padding: isMobile ? '1rem' : '1.2rem',
+      fontSize: '1.1rem',
+      fontWeight: 'bold',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '10px',
+      cursor: 'pointer',
+      transition: 'transform 0.3s, box-shadow 0.3s',
+      minHeight: '44px',
+    },
     infoSection: { display: 'flex', flexDirection: 'column', gap: '2rem' },
-    infoCard: { background: 'white', padding: '2rem', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s, box-shadow 0.3s' },
-    infoIcon: { fontSize: '2.5rem', marginBottom: '1rem', display: 'block' },
-    infoTitle: { fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.8rem', color: '#333' },
-    infoText: { color: '#666', lineHeight: '1.6' },
-    socialLinks: { display: 'flex', gap: '1rem', marginTop: '1rem' },
-    socialIcon: { width: '45px', height: '45px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', cursor: 'pointer', transition: 'transform 0.3s' },
+    infoCard: {
+      background: 'white',
+      padding: isMobile ? '1.5rem' : '2rem',
+      borderRadius: '15px',
+      boxShadow: '0 5px 20px rgba(0,0,0,0.08)',
+      transition: 'transform 0.3s, box-shadow 0.3s'
+    },
+    infoIcon: { fontSize: isMobile ? '2rem' : '2.5rem', marginBottom: '1rem', display: 'block' },
+    infoTitle: { fontSize: isMobile ? '1.1rem' : '1.3rem', fontWeight: 'bold', marginBottom: '0.8rem', color: '#333' },
+    infoText: { color: '#666', lineHeight: '1.6', fontSize: isMobile ? '0.9rem' : '1rem' },
+    socialLinks: { display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' },
+    socialIcon: {
+      width: '45px',
+      height: '45px',
+      borderRadius: '50%',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '1.5rem',
+      cursor: 'pointer',
+      transition: 'transform 0.3s',
+      minWidth: '44px',
+      minHeight: '44px',
+    },
   };
 
   return (
     <>
       <style>{`
-        .input:focus, .textarea:focus {
-          border-color: #667eea !important;
-          transform: translateY(-2px) !important;
-        }
-        .submit-button:hover {
-          transform: translateY(-3px) !important;
-          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4) !important;
-        }
-        .info-card:hover {
-          transform: translateY(-5px) !important;
-          box-shadow: 0 15px 40px rgba(0,0,0,0.12) !important;
-        }
-        .social-icon:hover {
-          transform: scale(1.15) rotate(10deg) !important;
+        /* Desktop-only hover effects */
+        @media (min-width: 768px) {
+          .input:focus, .textarea:focus {
+            border-color: #667eea !important;
+            transform: translateY(-2px) !important;
+          }
+          .submit-button:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4) !important;
+          }
+          .info-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12) !important;
+          }
+          .social-icon:hover {
+            transform: scale(1.15) rotate(10deg) !important;
+          }
+          .planet:hover { transform: scale(1.15); }
+          .orbit { animation: floatOrbit 14s linear infinite; }
+          .continuous-orbit { animation: continuousOrbit 12s linear infinite; }
         }
 
         @keyframes fadeInUp {
@@ -142,9 +229,6 @@ export function ContactPage() {
         .space-bg { position: fixed; inset: 0; z-index: -20; overflow: hidden; }
         .bg-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .planet { position: absolute; z-index: 2; transition: transform 0.25s ease; }
-        .planet:hover { transform: scale(1.15); }
-        .orbit { animation: floatOrbit 14s linear infinite; }
-        .continuous-orbit { animation: continuousOrbit 12s linear infinite; }
 
         @keyframes floatOrbit {
           0% { transform: translate(0,0) rotate(0deg); }
@@ -156,21 +240,37 @@ export function ContactPage() {
           50% { transform: translate(-50px,40px) rotate(180deg); }
           100% { transform: translate(0,0) rotate(360deg); }
         }
-      `}</style>
 
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+          .orbit,
+          .continuous-orbit,
+          .planet {
+            animation: none !important;
+          }
+          
+          .input:focus,
+          .textarea:focus,
+          .submit-button:hover,
+          .info-card:hover,
+          .social-icon:hover,
+          .planet:hover {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       <div className="space-bg">
         <img src="/images/bacs.jpg" className="bg-layer" alt="" />
         <img src="/images/mid.png" className="bg-layer" style={parallaxMid()} alt="" />
-        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: '260px', ...parallaxDir(1, -1, 1.1) }} alt="" />
-        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: '150px', ...parallaxDir(-1, 1, 0.9) }} alt="" />
-        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: '240px', ...parallaxDir(1, 1, 1.2) }} alt="" />
-        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: '170px', ...parallaxDir(-0.8, -1, 1) }} alt="" />
-        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: '260px', ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
-        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: '120px', ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
-        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: '180px', ...parallaxDir(0.8, -0.5, 1) }} alt="" />
+        <img src="/images/earth.png" className="planet" style={{ top: '6%', left: '4%', width: getPlanetSize('260px'), ...parallaxDir(1, -1, 1.1) }} alt="" />
+        <img src="/images/mars.png" className="planet" style={{ top: '18%', right: '8%', width: getPlanetSize('150px'), ...parallaxDir(-1, 1, 0.9) }} alt="" />
+        <img src="/images/jupiter.png" className="planet" style={{ bottom: '22%', left: '10%', width: getPlanetSize('240px'), ...parallaxDir(1, 1, 1.2) }} alt="" />
+        <img src="/images/venus.png" className="planet" style={{ top: '52%', right: '18%', width: getPlanetSize('170px'), ...parallaxDir(-0.8, -1, 1) }} alt="" />
+        <img src="/images/saturn.png" className="planet orbit" style={{ bottom: '10%', right: '5%', width: getPlanetSize('260px'), ...parallaxDir(0.6, -0.6, 0.8) }} alt="" />
+        <img src="/images/rock.png" className="planet" style={{ top: '32%', left: '42%', width: getPlanetSize('120px'), ...parallaxDir(-1.2, 0.8, 1.3) }} alt="" />
+        <img src="/images/uranus.png" className="planet continuous-orbit" style={{ top: '40%', left: '60%', width: getPlanetSize('180px'), ...parallaxDir(0.8, -0.5, 1) }} alt="" />
       </div>
-
 
       <div style={styles.page}>
         <div style={styles.hero}>
@@ -277,10 +377,10 @@ export function ContactPage() {
                 <span style={styles.infoIcon}>🌐</span>
                 <h3 style={styles.infoTitle}>Follow Us</h3>
                 <div style={styles.socialLinks}>
-                  <div className="social-icon" style={styles.socialIcon}>📘</div>
-                  <div className="social-icon" style={styles.socialIcon}>🐦</div>
-                  <div className="social-icon" style={styles.socialIcon}>📸</div>
-                  <div className="social-icon" style={styles.socialIcon}>💼</div>
+                  <div className="social-icon" style={styles.socialIcon} aria-label="Facebook">📘</div>
+                  <div className="social-icon" style={styles.socialIcon} aria-label="Twitter">🐦</div>
+                  <div className="social-icon" style={styles.socialIcon} aria-label="Instagram">📸</div>
+                  <div className="social-icon" style={styles.socialIcon} aria-label="LinkedIn">💼</div>
                 </div>
               </div>
             </div>
