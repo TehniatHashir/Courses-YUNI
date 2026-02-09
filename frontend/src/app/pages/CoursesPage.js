@@ -188,11 +188,11 @@ export function CoursesPage() {
       title: 'Cyber Security',
       category: 'IT & Security',
       description: 'Learn how to protect systems, networks, and data from cyber threats',
-      price: '$99',
-      rating: 4.8,
+
+
       students: '2,500',
       image: '/cybersecurity.jpg',
-      character: '👨‍💻',
+
       details: 'Covers ethical hacking, network security, cryptography, malware analysis, and real-world security practices.',
     },
     {
@@ -200,11 +200,11 @@ export function CoursesPage() {
       title: 'Digital Marketing',
       category: 'Marketing',
       description: 'Learn how to grow brands using digital channels and online strategies',
-      price: '$79',
-      rating: 4.9,
+
+
       students: '1,800',
       image: '/digitalmark.webp',
-      character: '🎨',
+
       details: 'Includes SEO, social media marketing, Google Ads, email marketing, analytics, and campaign strategy.',
     },
     {
@@ -212,11 +212,11 @@ export function CoursesPage() {
       title: 'AI Automation',
       category: 'Artificial Intelligence',
       description: 'Automate workflows and business processes using AI tools and scripts',
-      price: '$129',
-      rating: 4.7,
+
+
       students: '3,200',
       image: '/Ai.jpg',
-      character: '📊',
+
       details: 'Learn AI-powered automation, Python scripting, APIs, chatbots, and real-world automation use cases.',
     },
     {
@@ -224,11 +224,11 @@ export function CoursesPage() {
       title: 'Web Development',
       category: 'Development',
       description: 'Build modern, responsive websites from scratch',
-      price: '$89',
-      rating: 4.6,
+
+
       students: '1,500',
       image: '/webdev.jpg',
-      character: '📱',
+
       details: 'Learn HTML, CSS, JavaScript, React, backend basics, and deploy real-world web applications.',
     },
     {
@@ -236,11 +236,10 @@ export function CoursesPage() {
       title: 'Project Management',
       category: 'Management',
       description: 'Learn how to plan, execute, and deliver projects successfully',
-      price: '$119',
-      rating: 4.8,
+
       students: '2,100',
       image: '/Projmang.jpg',
-      character: '📱',
+
       details: 'Covers project planning, risk management, budgeting, leadership skills, and project management tools.',
     },
     {
@@ -248,11 +247,10 @@ export function CoursesPage() {
       title: 'Communication Skills',
       category: 'Personal Development',
       description: 'Improve verbal, non-verbal, and professional communication skills',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: '/communication.jpg',
-      character: '🤖',
+
       details: 'Learn public speaking, interpersonal communication, body language, and workplace communication techniques.',
     },
     {
@@ -260,11 +258,10 @@ export function CoursesPage() {
       title: 'Prompt Engineering',
       category: 'AI / ML',
       description: 'Learn how to write effective prompts for AI tools like ChatGPT',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: '/prompteng.jpg',
-      character: '🤖',
+
       details: 'Covers prompt design, optimization techniques, AI behavior control, and real-world AI use cases.',
     },
     {
@@ -272,11 +269,10 @@ export function CoursesPage() {
       title: 'Hospitality',
       category: 'Hospitality & Tourism',
       description: 'Learn the fundamentals of hospitality and customer service excellence',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: 'hospitality.jpg',
-      character: '🤖',
+
       details: 'Includes hotel management, guest relations, service quality, operations, and hospitality industry standards.',
     },
     {
@@ -284,11 +280,10 @@ export function CoursesPage() {
       title: 'English Proficiency',
       category: 'Language',
       description: 'Improve English speaking, writing, reading, and listening skills',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: 'english.jpg',
-      character: '🤖',
+
       details: 'Focuses on grammar, vocabulary, pronunciation, fluency, and professional English communication.',
     },
     {
@@ -296,11 +291,10 @@ export function CoursesPage() {
       title: 'Agile Project Management',
       category: 'Management',
       description: 'Manage projects efficiently using Agile methodologies',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: 'agile.jpg',
-      character: '🤖',
+
       details: 'Learn Scrum, Kanban, Agile planning, sprint management, and team collaboration techniques.',
     },
     {
@@ -308,11 +302,10 @@ export function CoursesPage() {
       title: 'Content Creation',
       category: 'Creative',
       description: 'Create engaging content for social media and digital platforms',
-      price: '$149',
-      rating: 4.9,
+
       students: '2,800',
       image: 'contentcreation.jpg',
-      character: '🤖',
+
       details: 'Covers content strategy, video creation, copywriting, branding, and monetization techniques.',
     },
   ];
@@ -405,13 +398,6 @@ export function CoursesPage() {
                   <span style={styles.courseCategory}>{course.category}</span>
                   <h3 style={styles.courseTitle}>{course.title}</h3>
                   <p style={styles.courseDescription}>{course.description}</p>
-
-                  <div style={styles.courseFooter}>
-                    <span style={styles.coursePrice}>{course.price}</span>
-                    <div style={styles.courseRating}>
-                      ⭐ {course.rating} ({course.students} students)
-                    </div>
-                  </div>
                 </div>
 
                 <div
@@ -460,15 +446,6 @@ export function CoursesPage() {
               {selectedCourseData.details}
             </p>
 
-            <div style={styles.courseFooter}>
-              <span style={styles.coursePrice}>
-                {selectedCourseData.price}
-              </span>
-              <div style={styles.courseRating}>
-                ⭐ {selectedCourseData.rating} •{' '}
-                {selectedCourseData.students} students
-              </div>
-            </div>
 
             <button
               className="enroll-button"
